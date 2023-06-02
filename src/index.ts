@@ -1,18 +1,9 @@
 import express, { Request, Response, NextFunction, Express } from 'express';
 import * as fs from 'fs';
 import { cwd } from 'process';
-import http from 'http';
-import { Server } from 'socket.io';
 
 
 const app: Express = express();
-const server = http.createServer(app);
-const io = new Server(server);
-
-io.on('connection', socket => {
-    console.log("user connected")
-    socket.emit('control', "Hello");
-})
 
 
 app.use("/", express.static("frontend"));
@@ -44,8 +35,8 @@ app.get("/streaming", (req: Request, res: Response) => {
         res.status(400).send('Require range header');
     }
 
-    const audioPath = "uploads/618.1355724323672Surf Curse - Freaks [Official Audio].mp3";
-    const audioSize = fs.statSync(audioPath).size;
+    const audioPath: string = "uploads/816.9179287432544Surf Curse - Freaks [Official Audio].mp3";
+    const audioSize: number = fs.statSync(audioPath).size;
 
     const CHUNK_SIZE = 10 ** 6;
     const start = Number(range.replace(/\D/g, ''));
@@ -63,11 +54,11 @@ app.get("/streaming", (req: Request, res: Response) => {
 
     res.writeHead(206, headers);
 
-    const audioStream = fs.createReadStream(audioPath, { start, end });
+    const audioStream: fs.ReadStream = fs.createReadStream(audioPath, { start, end });
     audioStream.pipe(res);
 
 })
 
-server.listen(3000, () => {
+app.listen(3000, () => {
     console.log("Application running on port: 3000")
 })

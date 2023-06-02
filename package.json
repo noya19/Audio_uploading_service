@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./src/index.ts"
+    "start": "nodemon ./src/index.ts",
+    "startSocket": "nodemon ./src/webSocket.ts"
   },
   "author": "",
   "license": "ISC",
@@ -20,6 +21,7 @@
     "@types/ws": "^8.5.4",
     "express": "^4.18.2",
     "socket.io": "^4.6.1",
+    "socket.io-client": "^4.6.1",
     "uuid": "^9.0.0",
     "ws": "^8.13.0"
   }
